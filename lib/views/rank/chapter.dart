@@ -25,9 +25,12 @@ class _ChapterState extends State<Chapter> {
       body: ListView.separated(
         itemCount: data == null ? 0 : data.length,
         itemBuilder: (BuildContext context, int index) {
-          return FlatButton(
-            child: Text(data[index]["title"]),
-            onPressed: () {
+          return GestureDetector(
+            child: Container(
+              padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+              child: Text(data[index]["title"], style: TextStyle(fontSize: 16),),
+            ),
+            onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context){
                 return Content(link: data[index]["link"]);
               }));

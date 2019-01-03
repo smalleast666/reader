@@ -28,15 +28,16 @@ getDetailsData(String id) async {
 
 // 获取章节
 getChapterData(String bookId) async {
-  Response<dynamic> response = await dio.get("$Api/mix-atoc/$bookId?view=chapters");
-     
-  return response.data["mixToc"]["chapters"];
+  Response<dynamic> responses = await dio.get("$Api/btoc?view=summary&book=$bookId");
+  String id = responses.data[0]["_id"] ?? '';
+  Response<dynamic> response = await dio.get("$Api/atoc/$id?view=chapters");
+  return response.data["chapters"];
 }
 
 // 获取内容
 getContentData(String link) async {
-  print("$Chap/chapter/$link");
+
   Response<dynamic> response = await dio.get("$Chap/chapter/$link");
-     
+
   return response.data["chapter"];
 }

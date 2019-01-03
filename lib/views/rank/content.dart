@@ -20,7 +20,7 @@ class _ContentState extends State<Content> {
     return Scaffold(
       appBar: AppBar(title: Text(data != null ? data["title"] : '加载中')),
       body: data != null ? SingleChildScrollView(
-        child: Text(data["body"]),
+        child: Text(data["cpContent"]),
         padding: EdgeInsets.all(8),
       ) : Center(child: Text('加载中'))
     );
