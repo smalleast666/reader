@@ -22,7 +22,7 @@ class _RankState extends State<Rank> {
       body: Row(
         children: <Widget>[
           Container(
-            width: 120,
+            width: 100,
             decoration: BoxDecoration(
               border: Border(right: BorderSide(color: Colors.lightBlue, width: 1))
             ),
@@ -35,7 +35,7 @@ class _RankState extends State<Rank> {
                     maxLines: 1,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 16
+                      fontSize: 15
                     )
                   ),
                   onTap: () {
@@ -54,7 +54,7 @@ class _RankState extends State<Rank> {
             ),
           ),
           Container(
-            width: 291,
+            width: 260,
             padding: EdgeInsets.all(8),
             child: ListView.separated(
               itemCount: bookList == null ? 0 : bookList.length,
@@ -65,7 +65,7 @@ class _RankState extends State<Rank> {
                       children: <Widget>[
                         Image.network(Statics + bookList[index]["cover"], width: 60),
                         Container(
-                          width: 215,
+                          width: 184,
                           padding: EdgeInsets.all(10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
