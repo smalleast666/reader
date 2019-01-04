@@ -32,7 +32,7 @@ class _ChapterState extends State<Chapter> {
             ),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context){
-                return Content(link: data[index]["link"]);
+                return Content(chapterList: data, index: index);
               }));
             },
           );
@@ -46,7 +46,7 @@ class _ChapterState extends State<Chapter> {
   }
 
 
-   @override
+  @override
   void initState() {
       // TODO: implement initState
       super.initState();

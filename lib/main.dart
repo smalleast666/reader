@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import './views/my/index.dart';
 import './views/rank/index.dart';
 import './views/collection/index.dart';
+import './views/message/index.dart';
+
+bool debugPaintSizeEnabled = true;
 
 void main() => runApp(MyApp());
 
@@ -31,6 +34,7 @@ class BottomNav extends StatefulWidget {
 class _BottomNavState extends State<BottomNav> {
   int _tabIndex = 0;
   List<dynamic> body = [
+    Message(),
     Collection(),
     Rank(),
     My(),
@@ -42,6 +46,10 @@ class _BottomNavState extends State<BottomNav> {
       body: body[_tabIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.message),
+            title: Text("社区"),
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
             title: Text("收藏"),
@@ -63,7 +71,7 @@ class _BottomNavState extends State<BottomNav> {
             _tabIndex = index;         
           });
         },
-      ), 
+      ),
     );
   }
 

@@ -7,7 +7,7 @@ class Details extends StatefulWidget {
   Details({Key key, this.title, this.id}):super(key: key);
   
   @override
-  _DetailsState createState() => _DetailsState(id: id,title:title);
+  _DetailsState createState() => _DetailsState(id: id,title: title);
 }
 
 class _DetailsState extends State<Details> {

@@ -21,6 +21,7 @@ dependencies:
   cupertino_icons: ^0.1.2
 
   dio: any  #latest version
+  web_socket_channel: any
 
 dev_dependencies:
   flutter_test:

@@ -9,3 +9,4 @@ class Collection extends StatelessWidget {
     );
   }
 }
+
