@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import './views/my/index.dart';
 import './views/rank/index.dart';
 import './views/collection/index.dart';
-import './views/message/index.dart';
+import './views/message/chatList.dart';
 
 bool debugPaintSizeEnabled = true;
 
@@ -34,7 +34,7 @@ class BottomNav extends StatefulWidget {
 class _BottomNavState extends State<BottomNav> {
   int _tabIndex = 0;
   List<dynamic> body = [
-    Message(),
+    ChatList(),
     Collection(),
     Rank(),
     My(),

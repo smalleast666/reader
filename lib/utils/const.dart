@@ -12,5 +12,5 @@ final String Chap = "http://chapterup.zhuishushenqi.com";
 final String Statics = "http://statics.zhuishushenqi.com";
 
 // socket地址
-final String SocketUrl = "ws://97.64.32.87:8888/ws";
-
+final String SocketUrl = "ws://106.12.123.241:8888/ws";
+// final String SocketUrl = "ws://127.0.0.1:8888/ws";

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/io.dart';
+import 'dart:convert';
 
 import '../../utils/const.dart';
+
 
 class Message extends StatefulWidget {
   @override
@@ -11,7 +13,9 @@ class Message extends StatefulWidget {
 class _MessageState extends State<Message> {
   TextEditingController _controller = new TextEditingController();
   IOWebSocketChannel channel;
+  Map<String, dynamic> sendTemp = {"cmd": 6, "username": "client", "email": "963732141@qq.com", "message": ""};
   String _text = "";
+  List<Map> messageList = [];
 
   @override
   void initState() {
@@ -25,49 +29,91 @@ class _MessageState extends State<Message> {
       appBar: new AppBar(
         title: new Text("WebSocket(内容回显)"),
       ),
-      body: new Padding(
-        padding: const EdgeInsets.all(20),
-        child: new Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            new Form(
-              child: new TextFormField(
-                controller: _controller,
-                decoration: new InputDecoration(labelText: 'Send a message'),
+            Flexible(
+              child: StreamBuilder(
+                stream: channel.stream,
+                builder: (context, snapshot) {
+                  //网络不通会走到这
+                  if (snapshot.hasError) {
+                    _text = "网络不通...";
+                  } else if (snapshot.hasData) {
+                    messageList.add(jsonDecode(snapshot.data));
+                  }
+                  return ListView.builder(
+                      // shrinkWrap: true,
+                      // reverse: true,
+                      itemCount: messageList != null ? messageList.length : 0,
+                      itemBuilder: (BuildContext context, int index) {
+                        return messageList != null ? 
+                          messageList[index]["username"] == "client" ? 
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(messageList[index]["username"] + "："),
+                                Container(
+                                  width: MediaQuery.of(context).size.width * .8,
+                                  child: Text(messageList[index]["message"], overflow: TextOverflow.ellipsis,maxLines: 10,),
+                                )
+                              ],
+                            )
+                            
+                            : Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                Text(messageList[index]["message"]),
+                                Text("：" + messageList[index]["username"]),
+                              ],
+                            )
+                          : Text("暂无消息");
+                      },
+                    );
+                  
+                },
               ),
             ),
-            new StreamBuilder(
-              stream: channel.stream,
-              builder: (context, snapshot) {
-                print("==================");
-                print(snapshot);
-                print("==================");
-                //网络不通会走到这
-                if (snapshot.hasError) {
-                  _text = "网络不通...";
-                } else if (snapshot.hasData) {
-                  _text = "echo: "+snapshot.data;
-                }
-                return new Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 24.0),
-                  child: new Text(_text),
-                );
-              },
-            )
+            Divider(height: 1),
+            Flex(
+              direction: Axis.horizontal,
+              children: <Widget>[
+                Container(
+                  width: 40,
+                  child: IconButton(
+                    onPressed: _sendMessage,
+                    icon: Icon(Icons.send),
+                    color: Colors.lightBlue,
+                  ),
+                ),
+                Expanded(
+                  child: Form(
+                    child: new TextFormField(
+                      controller: _controller,
+                      decoration: new InputDecoration(),
+                    ),
+                  ),
+                ),
+                Container(
+                  width: 40,
+                  child: IconButton(
+                    onPressed: _sendMessage,
+                    icon: Icon(Icons.send),
+                    color: Colors.lightBlue,
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
-      ),
-      floatingActionButton: new FloatingActionButton(
-        onPressed: _sendMessage,
-        tooltip: 'Send message',
-        child: new Icon(Icons.send),
-      ),
     );
   }
 
   void _sendMessage() {
     if (_controller.text.isNotEmpty) {
-      channel.sink.add(_controller.text);
+      // print(_controller.text);
+      sendTemp["message"] = _controller.text;
+      channel.sink.add(jsonEncode(sendTemp));
     }
   }
 
