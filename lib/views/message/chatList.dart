@@ -12,7 +12,7 @@ class _ChatListState extends State<ChatList> {
   Widget build(BuildContext context) {
     return Center(
        child: FlatButton(
-         child: Icon(Icons.palette),
+         child: Icon(Icons.message,size: 60),
          onPressed: () {
            Navigator.push(context, MaterialPageRoute(builder: (context) {
              return Message();

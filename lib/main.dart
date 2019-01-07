@@ -5,15 +5,16 @@ import './views/rank/index.dart';
 import './views/collection/index.dart';
 import './views/message/chatList.dart';
 
-bool debugPaintSizeEnabled = true;
-
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      showPerformanceOverlay: true,
       title: 'reader',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -33,7 +34,7 @@ class BottomNav extends StatefulWidget {
 
 class _BottomNavState extends State<BottomNav> {
   int _tabIndex = 0;
-  List<dynamic> body = [
+  List<Widget> body = [
     ChatList(),
     Collection(),
     Rank(),
