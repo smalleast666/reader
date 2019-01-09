@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import './views/my/index.dart';
 import './views/rank/index.dart';
 import './views/collection/index.dart';
-import './views/message/chatList.dart';
+import './views/message/index.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,12 +34,7 @@ class BottomNav extends StatefulWidget {
 
 class _BottomNavState extends State<BottomNav> {
   int _tabIndex = 0;
-  List<Widget> body = [
-    ChatList(),
-    Collection(),
-    Rank(),
-    My(),
-  ];
+  List<Widget> body = [ChatList(), Collection(), Rank(), My()];
 
   @override
   Widget build(BuildContext context) {
@@ -69,13 +64,10 @@ class _BottomNavState extends State<BottomNav> {
         currentIndex: _tabIndex,
         onTap: (index) {
           setState(() {
-            _tabIndex = index;         
+            _tabIndex = index;
           });
         },
       ),
     );
   }
-
-
 }
-
